@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $usuario = $stmt->fetch();
 
     // Verificación del hash y regeneración de sesión
-    if ($usuario && verificarPassword($password, $usuario['password'])) {
+    if ($usuario && verificarPassword($password, $usuario['password_hash'])) {
         
         // SEGURIDAD: Regeneramos el ID para evitar Session Fixation
         session_regenerate_id(true);

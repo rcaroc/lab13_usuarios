@@ -39,9 +39,8 @@ $rol_usuario = $_SESSION['user_rol'];
         <p><strong>Rol Asignado:</strong> <?= htmlspecialchars($rol_usuario) ?></p>
     </div>
 
-    <p>Esta página demuestra el cumplimiento del <strong>Punto 5 (Middleware de Roles)</strong> y la persistencia de la sesión segura.</p>
-    
+   
     <br>
-    <a href="auth/logout.php">Cerrar Sesión Segura</a>
+    <a href="auth/logout.php">Cerrar Sesión</a>
 </body>
 </html>

@@ -8,7 +8,6 @@ iniciarSesionSegura();
 $mensaje = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Validación CSRF (Obligatorio en todo POST)
     if (!validarCSRF($_POST['csrf_token'] ?? '')) {
         die('Fallo de seguridad: Token CSRF no válido.');
     }
@@ -16,23 +15,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'] ?? '';
 
-    // Buscamos al usuario
-    $stmt = $pdo->prepare("SELECT id, password_hash, rol FROM usuarios WHERE email = ?");
-    $stmt->execute([$email]);
-    $usuario = $stmt->fetch();
-
-    // Verificación del hash y regeneración de sesión
-    if ($usuario && verificarPassword($password, $usuario['password_hash'])) {
+    // USAMOS LA FUNCIÓN DEL PROFESOR: loginUsuario($pdo, $email, $password)
+    // Esta función ya hace el SELECT, el password_verify y el session_regenerate_id internamente.
+    if (loginUsuario($pdo, $email, $password)) {
         
-        // SEGURIDAD: Regeneramos el ID para evitar Session Fixation
-        session_regenerate_id(true);
-        
-        // Guardamos datos en la sesión
-        $_SESSION['user_id'] = $usuario['id'];
-        $_SESSION['user_rol'] = $usuario['rol']; // Para el middelware
-        $_SESSION['ultimo_acceso'] = time();
-
-        // Redirigimos según el  (Middleware de Roles)
+        // La función del profesor ya guardó $_SESSION['user_id'] y $_SESSION['user_rol']
+        // Así que solo redirigimos:
         header("Location: ../dashboard.php");
         exit;
     } else {

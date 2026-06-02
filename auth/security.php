@@ -67,5 +67,4 @@ function requireRol(string $rol): void {
  
 // Uso en formulario HTML:
 // <input type="hidden" name="csrf_token" value="<?= getCSRFToken() ?>">
-// Al procesar:
-// if (!validarCSRF($_POST['csrf_token'] ?? '')) die('Token CSRF inválido');
+

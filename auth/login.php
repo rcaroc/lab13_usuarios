@@ -8,7 +8,7 @@ iniciarSesionSegura();
 $mensaje = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // PUNTO 4: Validación CSRF (Obligatorio en todo POST)
+    // Validación CSRF (Obligatorio en todo POST)
     if (!validarCSRF($_POST['csrf_token'] ?? '')) {
         die('Fallo de seguridad: Token CSRF no válido.');
     }
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $stmt->execute([$email]);
     $usuario = $stmt->fetch();
 
-    // PUNTO 3: Verificación del hash y regeneración de sesión
+    // Verificación del hash y regeneración de sesión
     if ($usuario && verificarPassword($password, $usuario['password'])) {
         
         // SEGURIDAD: Regeneramos el ID para evitar Session Fixation
@@ -29,10 +29,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         // Guardamos datos en la sesión
         $_SESSION['user_id'] = $usuario['id'];
-        $_SESSION['user_rol'] = $usuario['rol']; // Para el Punto 5
+        $_SESSION['user_rol'] = $usuario['rol']; // Para el middelware
         $_SESSION['ultimo_acceso'] = time();
 
-        // Redirigimos según el Punto 5 (Middleware de Roles)
+        // Redirigimos según el  (Middleware de Roles)
         header("Location: ../dashboard.php");
         exit;
     } else {

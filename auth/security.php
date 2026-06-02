@@ -65,6 +65,3 @@ function requireRol(string $rol): void {
     }
 }
  
-// Uso en formulario HTML:
-// <input type="hidden" name="csrf_token" value="<?= getCSRFToken() ?>">
-

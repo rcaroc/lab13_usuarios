@@ -14,17 +14,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'] ?? '';
+    
+    // Variable auxiliar para capturar la razón del fallo por referencia
+    $error_detallado = "";
 
-    // USAMOS LA FUNCIÓN DEL PROFESOR: loginUsuario($pdo, $email, $password)
-    // Esta función ya hace el SELECT, el password_verify y el session_regenerate_id internamente.
-    if (loginUsuario($pdo, $email, $password)) {
-        
-        // La función del profesor ya guardó $_SESSION['user_id'] y $_SESSION['user_rol']
-        // Así que solo redirigimos:
+    // Enviamos el parámetro adicional de error
+    if (loginUsuario($pdo, $email, $password, $error_detallado)) {
         header("Location: ../dashboard.php");
         exit;
     } else {
-        $mensaje = "<p style='color:red'>Credenciales inválidas.</p>";
+        // Mostramos dinámicamente el mensaje provisto por security.php
+        $mensaje = "<p style='color:red'>" . htmlspecialchars($error_detallado) . "</p>";
     }
 }
 ?>

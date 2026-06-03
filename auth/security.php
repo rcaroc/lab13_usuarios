@@ -10,7 +10,6 @@ function setCabecerasSeguridad(): void {
     header("Content-Security-Policy: default-src 'self'; style-src 'self' 'unsafe-inline'");
     // Agregamos Strict-Transport-Security (HSTS)  usar HTTPS
     header("Strict-Transport-Security: max-age=31536000; includeSubDomains; preload");
-
     // Agregamos Permissions-Policy retingre funciones del navegador (camara, micro, etc.)
     header("Permissions-Policy: camera=(), microphone=(), geolocation=(), interest-cohort=()");
     }

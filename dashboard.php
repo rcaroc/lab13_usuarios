@@ -30,6 +30,17 @@ $rol_usuario = $_SESSION['user_rol'];
     </style>
 </head>
 <body>
+    <?php if ($_SESSION['user_rol'] === 'admin'): ?>
+        <div style="margin-top: 20px; padding: 15px; background: #e9ecef; border-left: 5px solid #007bff;">
+            <h4>Acceso Administrativo Detectado</h4>
+            <p>Tienes permisos para gestionar la plataforma.</p>
+            <a href="admin/index.php" style="display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 5px;">
+                Ir al Panel de Administración
+            </a>
+        </div>
+    <?php endif; ?>
+
+
     <h1>Bienvenido al Sistema Seguro</h1>
     
     <div class="card">

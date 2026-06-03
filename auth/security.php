@@ -18,6 +18,26 @@ function iniciarSesionSegura(): void {
     session_start();
 }
  
+// ─── VALIDACION ROBUSTA DE CONTRASEÑA ───────────────────────────────────────
+function validarFortalezaPassword(string $password): array {
+    $errores = [];
+
+    if (strlen($password) < 8) {
+        $errores[] = "Mínimo 8 caracteres.";
+    }
+    if (!preg_match('/[A-Z]/', $password)) {
+        $errores[] = "Al menos una letra mayúscula.";
+    }
+    if (!preg_match('/[0-9]/', $password)) {
+        $errores[] = "Al menos un número.";
+    }
+    if (!preg_match('/[@#$%&*]/', $password)) {
+        $errores[] = "Al menos un carácter especial (@#$%&*).";
+    }
+
+    return $errores; // Devuelve un array con los mensajes de error
+}
+
 // ─── 3. REGISTRO CON BCRYPT ──────────────────────────────────────────────────
 function registrarUsuario(PDO $pdo, string $email, string $password): bool {
     // Validar email

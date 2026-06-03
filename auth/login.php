@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
     $password = $_POST['password'] ?? '';
     
-    // Variable auxiliar para capturar la razón del fallo por referencia
+    // Variable auxiliar para capturar la razon del fallo
     $error_detallado = "";
 
     // Enviamos el parámetro adicional de error

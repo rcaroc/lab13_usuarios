@@ -54,7 +54,7 @@ function loginUsuario(PDO $pdo, string $email, string $password, string &$mensaj
             $mensaje_error = "Cuenta bloqueada temporalmente. Intente de nuevo en " . $minutos_restantes . " minutos.";
             return false;
         } else {
-            // El tiempo ya expiró: Limpiamos el bloqueo de forma automática en la BD
+            // El tiempo ya expiro: Limpiamos el bloqueo de forma automática en la BD
             $stmtReset = $pdo->prepare("UPDATE usuarios SET intentos_fallidos = 0, bloqueado_hasta = NULL WHERE id = :id");
             $stmtReset->execute([':id' => $user['id']]);
             $user['intentos_fallidos'] = 0; // Actualizamos la variable local
@@ -93,7 +93,7 @@ function loginUsuario(PDO $pdo, string $email, string $password, string &$mensaj
         return false;
     }
 
-    // 4. Autenticación Exitosa: Reiniciar parámetros de bloqueo y regenerar sesión
+    // 4. Autenticacion Exitosa: Reiniciar parametros de bloqueo y regenerar sesion
     $stmtSuccess = $pdo->prepare("UPDATE usuarios SET intentos_fallidos = 0, bloqueado_hasta = NULL WHERE id = :id");
     $stmtSuccess->execute([':id' => $user['id']]);
 

@@ -2,11 +2,11 @@
 require_once 'auth/security.php';
 require_once 'config/db.php';
 
-// 1. Cargamos cabeceras y sesión (Punto 6)
+// 1. Cargamos cabeceras y sesión 
 setCabecerasSeguridad();
 iniciarSesionSegura();
 
-// 2. MIDDLEWARE DE AUTORIZACIÓN (Punto 5)
+//  MIDDLEWARE DE AUTORIZACIÓN 
 // Si no hay sesión iniciada, redirigimos al login
 if (empty($_SESSION['user_id'])) {
     header("Location: auth/login.php");
